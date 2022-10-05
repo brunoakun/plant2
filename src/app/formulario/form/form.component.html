@@ -12,27 +12,16 @@
         <!-- Contact Section Form-->
         <div class="row justify-content-center">
             <div class="col-lg-8 col-xl-7">
-                <form id="contactForm">
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()"
+                    class="bg-light p-2   border border-2 rounded-1" autocomplete="off">
 
                     <div class="row">
 
-                        <!-- nombre -->
-                        <div class="col-md-5 col-xs-12">
+                        <!-- nomApe -->
+                        <div class="col-md-12 col-xs-12">
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="name" type="text" placeholder="Entra tu nombre..."
-                                    data-sb-validations="required" />
-                                <label for="name">Nombre</label>
-                                <div class="invalid-feedback" data-sb-feedback="name:required">Nombre obligatorio.</div>
-                            </div>
-                        </div>
-                        <!-- apellidos -->
-                        <div class="col-md-7 col-xs-12">
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="apellidos" type="text" placeholder="Los apellidos..."
-                                    data-sb-validations="required" />
-                                <label for="apellidos">Apellidos</label>
-                                <div class="invalid-feedback" data-sb-feedback="apellidos:required">Apellidos
-                                    obligatorios.</div>
+                                <input class="ps-1 form-control" id="nomApe" type="text" disabled value="{{nomApe}}" />
+                                <label for="nomApe">Nombre</label>
                             </div>
                         </div>
 
@@ -40,37 +29,40 @@
 
 
 
-                    <!-- telefono -->
-                    <div class="col-md-12 col-xs-12">
-                        <div class="form-floating mb-3">
-                            <input class="form-control" id="telefono" type="text" placeholder="Telefono obligatorio"
-                                data-sb-validations="required" />
-                            <label for="name">Teléfono</label>
-                            <div class="invalid-feedback" data-sb-feedback="telefono:required">Teléfono obligatorio.
+                    <div class="row">
+
+                        <!-- telefono -->
+                        <div class="col-md-4 col-xs-12">
+                            <div class="form-floating mb-3">
+                                <input class="ps-1 form-control" id="telefono" type="text" value="{{telefono}}"
+                                    disabled />
+                                <label for="telefono">Teléfono</label>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- email -->
-                    <div class="col-md-12 col-xs-12">
-                        <div class="form-floating mb-3">
-                            <input class="form-control" id="email" type="text" placeholder=" "
-                                data-sb-validations="required" />
-                            <label for="email">eMail</label>
-                            <div class="invalid-feedback" data-sb-feedback="email:required">email obligatorio.</div>
+
+                        <!-- email -->
+                        <div class="col-md-8 col-xs-12">
+                            <div class="form-floating mb-3">
+                                <input id="email" class="ps-1 form-control" type="text" value="{{email}}" disabled />
+                                <label for="email">eMail</label>
+                            </div>
                         </div>
+
                     </div>
 
                     <!-- direccion -->
                     <div class="col-md-12 col-xs-12">
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="direccion" type="text" placeholder=" "
-                                data-sb-validations="required" />
+                            <input formControlName="direccion" class="ps-1 form-control" type="text" placeholder=" "
+                                [ngClass]="{ 'is-invalid': enviado && f['direccion'].errors }" />
                             <label for="direccion">Dirección</label>
-                            <div class="invalid-feedback" data-sb-feedback="direccion:required">Dirección necesaria.
+                            <div *ngIf="enviado && f['direccion'].errors" class="invalid-feedback">
+                                <div *ngIf="f['direccion'].errors['required']">Dirección necesaria</div>
                             </div>
                         </div>
                     </div>
+
 
 
                     <div class="row">
@@ -79,25 +71,43 @@
                         <!-- cp1 -->
                         <div class="col-md-4 col-xs-12">
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="name" type="text" placeholder="Entra tu nombre..."
-                                    data-sb-validations="required" />
-                                <label for="name">CP</label>
-                                <div class="invalid-feedback" data-sb-feedback="name:required">Nombre obligatorio.</div>
+                                <input formControlName="cp1" class="ps-1 form-control" type="text" placeholder=" "
+                                    maxlength="5" [ngClass]="{ 'is-invalid': enviado && f['cp1'].errors }"
+                                    (keyup)="buscaPob()" />
+                                <label for="cp1">CP</label>
+                                <div *ngIf="enviado && f['cp1'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['cp1'].errors['required']">Obligatorio</div>
+                                    <div *ngIf="f['cp1'].errors['noExiste']">No encontrado</div>
+                                </div>
                             </div>
                         </div>
 
 
-                        <!-- poblacion -->
+                        <!-- poblacion 
                         <div class="col-md-8 col-xs-12">
                             <div class="form-floating mb-3">
                                 <select class="form-select" id="poblacion" name="poblacion">
                                     <option value="es">Español</option>
                                     <option value="ca">Català</option>
                                 </select>
-                                <div class="invalid-feedback" data-sb-feedback="poblacion:required">Nombre obligatorio.
+                                <div class="invalid-feedback" 
+                                    data-sb-feedback="poblacion:required">poblacion obligatoria.
                                 </div>
                             </div>
                         </div>
+                        -->
+
+
+                        <!-- poblacion -->
+                        <div class="col-md-8 col-xs-12">
+                            <div class="form-floating mb-3">
+                                <input formControlName="poblacion" class="ps-1 form-control" type="text" placeholder=" "
+                                    [ngClass]="{ 'is-invalid': enviado && f['poblacion'].errors }" />
+                                <label for="poblacion">Poblacion</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">obligatorio.</div>
+                            </div>
+                        </div>
+
 
 
                     </div>
@@ -110,10 +120,13 @@
                         <!-- cp2 -->
                         <div class="col-md-4 col-xs-12">
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="name" type="text" placeholder="Entra tu nombre..."
-                                    data-sb-validations="required" />
-                                <label for="name">CP</label>
-                                <div class="invalid-feedback" data-sb-feedback="name:required">Nombre obligatorio.</div>
+                                <input formControlName="cp2" class="ps-1 form-control" type="text" placeholder=" "
+                                    maxlength="5" [ngClass]="{ 'is-invalid': enviado && f['cp2'].errors }" />
+                                <label for="cp2">CP</label>
+                                <div *ngIf="enviado && f['cp2'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['cp2'].errors['required']">CP otra vez...</div>
+                                    <div *ngIf="f['cp2'].errors['matching']">No coinciden</div>
+                                </div>
                             </div>
                             <small><i>Introduce de nuevo tu CP</i></small>
                         </div>
@@ -122,19 +135,13 @@
                         <!-- provincia -->
                         <div class="col-md-8 col-xs-12">
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="name" type="text" placeholder="Entra tu nombre..."
-                                    data-sb-validations="required" />
+                                <input formControlName="provincia" class="ps-1 form-control" type="text" />
                                 <label for="name">Provincia</label>
-                                <div class="invalid-feedback" data-sb-feedback="name:required">Nombre obligatorio.</div>
                             </div>
                         </div>
 
 
                     </div>
-
-
-
-
 
 
 
@@ -149,8 +156,14 @@
                     <div class="d-none" id="submitErrorMessage">
                         <div class="text-center text-danger mb-3">Error sending message!</div>
                     </div>
+
                     <!-- Submit Button-->
-                    <button class="btn btn-primary btn-xl disabled" id="submitButton" type="submit">Enviar</button>
+                    <button [disabled]="loading" class="btn btn-primary btn-xl" id="submitButton" type="submit"> Enviar
+                        <span *ngIf="loading">
+                            <i class="fa fa-spinner fa-spin ms-1"></i>
+                        </span>
+                    </button>
+
                 </form>
             </div>
         </div>
