@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
+import { IUsuario } from 'src/app/_modelos/iusuario';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +21,10 @@ export class DatosService {
     const data = JSON.stringify(solicitud.value);
     const path = `${this.apiURL}?accion=add_solicitud`;
     return this.http.post<any>(path,data);
+  }
+
+  getDatosUsr(usr:IUsuario){
+
   }
 
 

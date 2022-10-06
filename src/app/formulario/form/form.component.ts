@@ -4,6 +4,8 @@ import { DatosService } from '../_servicios/datos.service';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import Validation from 'src/app/providers/CustomValidators';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-form',
@@ -20,12 +22,15 @@ export class FormComponent implements OnInit {
   telefono: string = '93 2118497';
   email: string = 'bruno.akun@gmail.com';
 
+  id: any = '';
+
   public listaPob: Array<string> = [];
 
   constructor(
     private formBuilder: UntypedFormBuilder,
     //private modal: NgbModal,
-    public srvDatos: DatosService
+    public srvDatos: DatosService,
+    private rutaActiva: ActivatedRoute
   ) { }
 
 
@@ -42,8 +47,23 @@ export class FormComponent implements OnInit {
   );
 
 
-  ngOnInit(): void {
+
+
+  ngOnInit() {
+    this.rutaActiva.queryParams
+      .subscribe(params => {
+        console.log(params); // Todos los parámetros
+        this.id = params['id'];
+        console.log(this.id);
+        if (this.id) alert(this.id);
+      }
+      );
+
+
   }
+
+
+
 
 
   get f() {

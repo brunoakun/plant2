@@ -81,7 +81,6 @@ define("COOKIE_PATH", "/");  //Avaible in whole domain
  */
 
 define("SET_URL", ""); // Url pública
-//define("EMAIL_SEND", "antonionavarro@ventas.envialog.com"); // email donde enviar el formulario de solicitud  de alta
 define("EMAIL_SEND", "bruno.akun@gmail.com"); // email donde enviar el formulario de solicitud  de alta
 define("EMAIL_FROM_CONTACT", "informacion@envialog.com"); // email remitente del formulario de contacto	
 define("EMAIL_FROM_NAME", "Soporte Gestión Envíos APP"); // nombre del remitente 
@@ -96,7 +95,7 @@ define("SET_PASS_URL", SET_URL."/usuario-set-password.php");	// Url recuperació
 
 define("EMAIL_HOST",        "mail.envialog.com");                      // $mail->Host 
 define("EMAIL_USERNAME",    "informacion@envialog.com");               // $mail->Username
-define("EMAIL_PASSWORD",    "CRM_crm_");                               // $mail->Password
+define("EMAIL_PASSWORD",    "aS3_RDy37f##NxZ1");                      // $mail->Password
 define("EMAIL_SMTPSECURE",  "ssl");  	                              // $mail->SMTPSecure
 define("EMAIL_PORT",        "25");  	                              // $mail->Port
 
