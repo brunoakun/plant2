@@ -20,9 +20,8 @@ switch ($accion) {
 	case "add_solicitud":
 		/**
 		 * Capturar datos del form
-		 * Grabar datos del formulario en la tabla
+		 * Updatear datos del formulario en la tabla
 		 * Enviar email
-		 * Devolver el contador "99999"
 		 */
 
 		# 1.- Capturar datos del form
