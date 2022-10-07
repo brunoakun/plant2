@@ -28,13 +28,13 @@ switch ($accion) {
 		# 1.- Capturar datos del form
 		$form_data  = json_decode(file_get_contents("php://input"));
 
-		$direccion	=  $database->escape_str($form_data->direccion);		
-		$cp			= $form_data->cp; 
+		$direccion	=  $database->escape_str($form_data->direccion);
+		$cp			= $form_data->cp;
 		$poblacion	= $database->escape_str($form_data->poblacion);
 		$provincia	= $form_data->provincia;
 
 		# 2.- Formatear datos
-		$provincia 	= strtoupper($provincia);  
+		$provincia 	= strtoupper($provincia);
 
 		# 3.- Grabar datos en la tabla solicitudes_registro
 		$q  = 'INSERT into solicitudes_registro ';
@@ -87,6 +87,8 @@ switch ($accion) {
 		if ($estado == "ok") $mensaje = "Solicitud enviada";
 		break;
 
+
+
 	case "busca_cp":
 		/**
 		 * Buscar Poblacion/es y Provincia en base a un CP
@@ -101,21 +103,52 @@ switch ($accion) {
 		}
 		$aux = substr($cp, 0, 2);
 		$q1 = "SELECT * from aux_provincias WHERE cod_pro='$aux' ";
-		$List = $database->getQuery($q1);
-		$provincia = $List[0]['provincia'];
+		$list = $database->getQuery($q1);
+		$provincia = $list[0]['provincia'];
 
 		$q = "SELECT * from poblacionesenvialia WHERE CP='$cp' ORDER BY Poblacion ";
-		$List = $database->getQueryAssoc($q);
+		$list = $database->getQueryAssoc($q);
 
-		if (!$List) $estado = "error";
+		if (!$list) $estado = "error";
 
 		// Montar array de respuesta 
 		$datos = array(
-			'lista' => $List,
+			'lista' => $list,
 			'provincia' => $provincia,
 			'q' => $q1
 		);
 		break;
+
+
+
+	case "get_datos":
+		/**
+		 * Buscar Poblacion/es y Provincia en base a un CP
+		 * Devolver array de Poblaciones y datos de provinvia
+		 */
+
+		$idMD5 = $_GET["idMD5"];
+		$estado = "ok";
+		if (!$idMD5) {
+			$estado = "error";
+			$mensaje = "No se ha pasado idMD5";
+		}
+		$id = my_simple_crypt($idMD5, 'd');
+		$q = "SELECT * FROM trabajadores WHERE id=$id LIMIT 1";
+		$list = $database->getQueryAssoc($q);
+
+		if ($estado == 'ok' && !$list) {
+			$estado = "error";
+			$mensaje = "id no encontrado";
+		}
+
+		// Montar array de respuesta 
+		$datos = array(
+			'lista' => $list,
+			'q' => $q1
+		);
+		break;
+
 
 	default:
 		$estado = "error";

@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -10,9 +11,13 @@ export class NavbarComponent implements OnInit {
 
   titulo: string = environment.titulo;
 
-  constructor() { }
+  constructor(private scroll: ViewportScroller) {}
 
   ngOnInit(): void {
   }
+
+  public scrollTo(elementId: string): void { 
+    this.scroll.scrollToAnchor(elementId);
+}
 
 }

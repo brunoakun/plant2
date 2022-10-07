@@ -1,5 +1,24 @@
 <!-- Contact Section-->
 <section class="page-section" id="contact">
+
+
+
+
+    <!-- Avisos -->
+    <div class="container">
+        <div class="row">
+
+            <div [hidden]="!this.srvDatos.errorMsg" class="alert alert-danger mt-4" role="alert">
+                <h3>Ha ocurrido un error</h3>
+                <p>{{this.srvDatos.errorMsg}}</p>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
     <div class="container">
         <!-- Contact Section Heading-->
         <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Valida tus datos</h2>
@@ -11,6 +30,8 @@
         </div>
         <!-- Contact Section Form-->
         <div class="row justify-content-center">
+
+
             <div class="col-lg-8 col-xl-7">
                 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()"
                     class="bg-light p-2   border border-2 rounded-1" autocomplete="off">
@@ -20,7 +41,8 @@
                         <!-- nomApe -->
                         <div class="col-md-12 col-xs-12">
                             <div class="form-floating mb-3">
-                                <input class="ps-1 form-control" id="nomApe" type="text" disabled value="{{nomApe}}" />
+                                <input class="ps-1 form-control" id="nomApe" type="text" disabled
+                                    [value]="trabajador.nombre+' '+trabajador.apellidos" />
                                 <label for="nomApe">Nombre</label>
                             </div>
                         </div>
@@ -34,7 +56,7 @@
                         <!-- telefono -->
                         <div class="col-md-4 col-xs-12">
                             <div class="form-floating mb-3">
-                                <input class="ps-1 form-control" id="telefono" type="text" value="{{telefono}}"
+                                <input class="ps-1 form-control" id="telefono" type="text" [value]="trabajador.telefono"
                                     disabled />
                                 <label for="telefono">Teléfono</label>
                             </div>
@@ -44,7 +66,7 @@
                         <!-- email -->
                         <div class="col-md-8 col-xs-12">
                             <div class="form-floating mb-3">
-                                <input id="email" class="ps-1 form-control" type="text" value="{{email}}" disabled />
+                                <input id="email" class="ps-1 form-control" type="text" [value]="trabajador.email" disabled />
                                 <label for="email">eMail</label>
                             </div>
                         </div>
@@ -135,7 +157,7 @@
                         <!-- provincia -->
                         <div class="col-md-8 col-xs-12">
                             <div class="form-floating mb-3">
-                                <input formControlName="provincia" class="ps-1 form-control" type="text" />
+                                <input formControlName="provincia" class="ps-1 form-control" type="text" readonly />
                                 <label for="name">Provincia</label>
                             </div>
                         </div>

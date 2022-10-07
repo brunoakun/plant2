@@ -9,22 +9,25 @@ import { IUsuario } from 'src/app/_modelos/iusuario';
 })
 export class DatosService {
   apiURL: string = environment.apiURL;
+  errorMsg: string = '';
+  public idioma = 'es';
   constructor(private http: HttpClient) { }
 
 
-  getPoblaciones(cp: string) { 
+  getPoblaciones(cp: string) {
     const path = `${this.apiURL}?accion=busca_cp&cp=${cp}`;
     return this.http.get<any>(path);
   }
 
-  addSolicitud(solicitud: any) { 
+  addSolicitud(solicitud: any) {
     const data = JSON.stringify(solicitud.value);
     const path = `${this.apiURL}?accion=add_solicitud`;
-    return this.http.post<any>(path,data);
+    return this.http.post<any>(path, data);
   }
 
-  getDatosUsr(usr:IUsuario){
-
+  getDatosUsr(idMD5: string) {
+    const path = `${this.apiURL}?accion=get_datos&idMD5=${idMD5}`;
+    return this.http.get<any>(path);
   }
 
 

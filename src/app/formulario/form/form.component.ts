@@ -1,3 +1,4 @@
+import { IUsuario } from 'src/app/_modelos/iusuario';
 import { environment } from 'src/environments/environment';
 import { DatosService } from '../_servicios/datos.service';
 
@@ -18,12 +19,14 @@ export class FormComponent implements OnInit {
   errorApi: string = '';
   successApi: string = '';
 
-  nomApe: string = 'Bruno Barange';
-  telefono: string = '93 2118497';
-  email: string = 'bruno.akun@gmail.com';
+  public trabajador: IUsuario = {
+    nombre: ' ',
+    apellidos: ' ',
+    telefono: ' ',
+    email: ' '
+  };
 
-  id: any = '';
-
+  private idMD5: string = '';
   public listaPob: Array<string> = [];
 
   constructor(
@@ -53,22 +56,41 @@ export class FormComponent implements OnInit {
     this.rutaActiva.queryParams
       .subscribe(params => {
         console.log(params); // Todos los parámetros
-        this.id = params['id'];
-        console.log(this.id);
-        if (this.id) alert(this.id);
+        this.idMD5 = params['idMD5'];
+        if (this.idMD5) {
+          this.loading = true;
+          this.srvDatos.getDatosUsr(this.idMD5).subscribe((respuesta) => {
+            if (!respuesta || respuesta.estado == 'error') {
+              this.srvDatos.errorMsg = respuesta.mensaje;
+              this.loading = false;
+              return;
+            }
+            // Datos trabajador
+            console.log('respuesta=' + JSON.stringify(respuesta));
+            this.setDatosTrabajador(respuesta.lista[0]);
+            
+            this.loading = false;
+          });
+          console.log('trabajador=' + JSON.stringify(this.trabajador));
+        }
       }
       );
 
-
   }
 
-
-
-
+  setDatosTrabajador(trab: IUsuario) {
+    this.trabajador = trab;
+    console.log('id=' + trab.id);
+    this.registerForm.patchValue({ direccion: trab.direccion });
+    this.registerForm.patchValue({ cp1: trab.cp });
+    this.registerForm.patchValue({ poblacion: trab.poblacion });
+    this.registerForm.patchValue({ provincia: trab.provincia });
+  }
 
   get f() {
     return this.registerForm.controls;
   }
+
 
   onSubmit() {
     console.log(this.registerForm.value);

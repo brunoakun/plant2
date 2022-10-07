@@ -45,7 +45,7 @@
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #D75C18;    
+  --bs-primary: #D75C18;
   --bs-secondary: #2c3e50;
   --bs-success: #198754;
   --bs-info: #0dcaf0;
@@ -54,8 +54,9 @@
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
   --bs-primary-rgb: 26, 188, 156;
- 
-  --bs-primary-rgb: 215, 92, 24;  /* D75C18 */
+
+  --bs-primary-rgb: 215, 92, 24;
+  /* D75C18 */
 
   --bs-secondary-rgb: 44, 62, 80;
   --bs-success-rgb: 25, 135, 84;
@@ -12037,6 +12038,7 @@ html {
 
 #mainNav .navbar-nav li.nav-item a.nav-link:hover {
   color: #D75C18;
+  cursor: pointer;
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link:active, #mainNav .navbar-nav li.nav-item a.nav-link:focus {
@@ -12101,8 +12103,7 @@ html {
 
 .form-floating input.form-control:focus,
 .form-floating option.form-select:focus,
-.form-floating textarea.form-control:focus
- {
+.form-floating textarea.form-control:focus {
   box-shadow: none;
 }
 

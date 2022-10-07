@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   titulo: 'Navidad 2022-dev',
-  apiURL: " http://localhost/angular_wk/plant2/api/api.php"
+  apiURL: "http://localhost/angular_wk/plant2/api/api.php"
 };
 
 /*
